@@ -1,0 +1,23 @@
+stack = []
+a = []
+queue = []
+stack.push("a")
+stack.push("b")
+stack.push("c")
+stack.push("d")
+stack.push("e")
+a.push("f")
+a.push("g")
+stack.push("h")
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+queue.enqueue(4)
+queue.dequeue()
+queue.dequeue()
+stack.pop()
+stack.pop()
+stack.pop()
+stack.pop()
+stack.pop()
+stack.pop()
