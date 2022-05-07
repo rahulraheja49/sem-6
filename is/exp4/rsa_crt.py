@@ -3,7 +3,7 @@ import math
 p, q = 7, 11
 n = p*q
 z = (p-1)*(q-1)
-e, d, dp, dq, qinv = 2, 2, 2, 2, 2
+e, dp, dq, qinv = 2, 2, 2, 2
 
 while math.gcd(e, z) != 1:
     e+=1
@@ -26,7 +26,7 @@ def encrypt(e, n):
     return ciphertext
 
 
-def decrypt(d, n):
+def decrypt():
     ciphertext = input("Enter ciphertext: ")
     ciphertext = ciphertext.split(", ")
     plaintext = []
@@ -53,7 +53,7 @@ while(option != -1):
         print(ciphertext)
     elif option == 2:
         print("\n--- Decryption selected ---")
-        plaintext = decrypt(d, n)
+        plaintext = decrypt()
         print(plaintext)
     elif option == -1:
         print("Exiting...")
