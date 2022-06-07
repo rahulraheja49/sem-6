@@ -38,8 +38,7 @@ int normal_partition(int beg, int end){
     for (int i = beg; i < end; i++){
         if (pivot < a[i]){
             continue;
-        }
-        else{
+        } else{
             temp = a[i];
             a[i] = a[pindex];
             a[pindex] = temp;
