@@ -1,27 +1,35 @@
-def encrypt(col):
+import collections
+
+def encrypt(key):
     plaintext = input("Enter plaintext: ")
     res=[]
-    if len(plaintext)%col !=0:
-        r = col - len(plaintext)%col 
-        plaintext += ' '*r
-    for i in range(col):
-        for j in range(i, len(plaintext), col):
-            res.append(plaintext[j])
-    print(f"Ciphertext: '{''.join(res)}'")
+    cols = {}
+    for ind, i in enumerate(key):
+        cols[i] = []
+    diff = len(plaintext) % len(key)
+    plaintext += "#"*diff
+    sorted_key = "".join(sorted(key))
+    for ind, i in enumerate(plaintext):
+        cols[sorted_key[ind%len(key)]].append(i)
+    for i in key:
+        res += cols[i]
+    print("".join(res))
 
 
-def decrypt(col):
+def decrypt(key):
     ciphertext = input("Enter ciphertext: ")
-    length_part = len(ciphertext)/col
+    cols = {}
+    sorted_key = "".join(sorted(key))
     res, plaintext=[], []
-    for i in range(col):
-        res.append(ciphertext[int(i*col):int(i*col+length_part)])
-    for i in range(len(res[0])):
-        for j in range(col):
-            if res[j][i] != " ":
-                plaintext.append(res[j][i])
-    print(f"Plaintext: '{''.join(plaintext)}'")
-
+    for ind, i in enumerate(key):
+        cols[i] = []
+    vals_per_col = len(ciphertext)//len(key)
+    for i in range(0, len(key)):
+        cols[key[i]] = list(ciphertext[i*vals_per_col:i*vals_per_col+vals_per_col])
+    for i in range(vals_per_col):
+        for j in sorted_key:
+            res.append(cols[j][i])
+    print("".join(res))
 
 option=0
 while(option != -1):
@@ -33,12 +41,12 @@ while(option != -1):
 
     if option == 1:
         print("\n--- Encryption selected ---")
-        col = len(input("Enter the key: "))
-        encrypt(col)
+        key = input("Enter the key: ")
+        encrypt(key)
     elif option == 2:
         print("\n--- Decryption selected ---")
-        col = len(input("Enter the key: "))
-        decrypt(col)
+        key = input("Enter the key: ")
+        decrypt(key)
     elif option == -1:
         print("Exiting...")
     else:
