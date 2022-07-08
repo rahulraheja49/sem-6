@@ -12,7 +12,10 @@ int random_pivot(int low, int high){
 int partition(int beg, int end){
     int loc, pindex, pivot, temp;
     int piv_ind = random_pivot(beg, end);
-    pivot = a[piv_ind];
+    int temp1 = a[piv_ind];
+    a[piv_ind] = a[end];
+    a[end] = temp1;
+    pivot = a[end];
     pindex = beg;
     for (int i = beg; i < end; i++){
         if (pivot < a[i]){
@@ -82,8 +85,9 @@ void main() {
     printf("Enter the number of elements: ");
     scanf("%d", &n);
     for (i = 0; i < n; i++) {
-        a[i] = random_pivot(0, n);
+        a[i] = i;
     }
+    printf("Worst Case: \n");
     t1 = clock();
     quicksort(0, n);
     t1 = clock() - t1;
@@ -93,5 +97,19 @@ void main() {
     normal_quicksort(0, n);
     t2 = clock() - t2;
     double time_taken2 = ((double)t2)/CLOCKS_PER_SEC;
+    printf("Normal:\t\t%fs\n", time_taken2);
+    printf("\nRandomized array: \n");
+    for (i = 0; i < n; i++) {
+        a[i] = random_pivot(0, n);
+    }
+    t1 = clock();
+    quicksort(0, n);
+    t1 = clock() - t1;
+    time_taken1 = ((double)t1)/CLOCKS_PER_SEC;
+    printf("Randomized:\t%fs\n", time_taken1);
+    t2 = clock();
+    normal_quicksort(0, n);
+    t2 = clock() - t2;
+    time_taken2 = ((double)t2)/CLOCKS_PER_SEC;
     printf("Normal:\t\t%fs\n", time_taken2);
 }
